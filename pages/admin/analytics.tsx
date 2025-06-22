@@ -21,14 +21,21 @@ export default function AnalyticsPage() {
   const [byAuthor, setByAuthor] = useState<{ name: string; count: number }[]>([]);
   const [byCategory, setByCategory] = useState<{ name: string; value: number }[]>([]);
 
-  const guessCategory = (title: string): string => {
-    const lower = title.toLowerCase();
-    if (lower.includes("tech")) return "Technology";
-    if (lower.includes("politic")) return "Politics";
-    if (lower.includes("sport")) return "Sports";
-    if (lower.includes("business")) return "Business";
-    return "General";
-  };
+ const guessCategory = (text: string): string => {
+  const lower = text.toLowerCase();
+
+  if (/(tech|ai|software|gadget|iphone|android|app|robot|programming|code|cloud|data)/.test(lower))
+    return "Technology";
+  if (/(politic|election|government|president|minister|policy|congress|senate|bjp|modi|rahul)/.test(lower))
+    return "Politics";
+  if (/(sport|match|tournament|cricket|football|nba|team|score|goal|fifa|ipl|bcci|player)/.test(lower))
+    return "Sports";
+  if (/(business|startup|market|stock|economy|trade|funding|investment|bank|finance|shares)/.test(lower))
+    return "Business";
+
+  return "General";
+};
+
 
   useEffect(() => {
     const fetchAndAnalyze = async () => {
