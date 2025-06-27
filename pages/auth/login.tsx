@@ -1,5 +1,5 @@
 // FILE: pages/auth/login.tsx
-import { signInWithPopup } from "firebase/auth";
+
 import { auth, provider } from "../../lib/firebase";
 import { useRouter } from "next/router";
 import { useDispatch } from "react-redux";
@@ -7,12 +7,37 @@ import { loginUser } from "../../redux/slices/authSlice";
 import { motion } from "framer-motion";
 import dynamic from "next/dynamic";
 import { useEffect, useState } from "react";
+import { signInWithEmailAndPassword, signInWithPopup } from "firebase/auth";
+
 
 const ParticlesBg = dynamic(() => import("particles-bg"), { ssr: false });
 
 export default function LoginPage() {
   const router = useRouter();
   const dispatch = useDispatch();
+  const [email, setEmail] = useState("");
+const [password, setPassword] = useState("");
+
+const handleEmailLogin = async () => {
+  try {
+    const result = await signInWithEmailAndPassword(auth, email, password);
+    const user = result.user;
+
+    dispatch(
+      loginUser({
+        name: user.displayName || "Admin",
+        email: user.email || "No Email",
+        photo: "", // No photo in email/pass
+        isAdmin: user.email === "makhu4002@gmail.com", // Your public admin
+      })
+    );
+    router.push("/dashboard");
+  } catch (err) {
+    console.error("Email Login error", err);
+    alert("Email login failed. Check credentials.");
+  }
+};
+
 
   const handleLogin = async () => {
     try {
@@ -53,6 +78,29 @@ export default function LoginPage() {
         <h1 className="text-4xl font-extrabold text-gray-800 mb-3 tracking-tight">
           News Dashboard
         </h1>
+        <div className="mb-4">
+  <input
+    type="email"
+    placeholder="Email"
+    className="w-full px-4 py-2 border rounded mb-2"
+    value={email}
+    onChange={(e) => setEmail(e.target.value)}
+  />
+  <input
+    type="password"
+    placeholder="Password"
+    className="w-full px-4 py-2 border rounded mb-4"
+    value={password}
+    onChange={(e) => setPassword(e.target.value)}
+  />
+  <button
+    onClick={handleEmailLogin}
+    className="bg-green-600 hover:bg-green-700 text-white px-6 py-2 rounded w-full font-semibold mb-3"
+  >
+    Sign in with Email
+  </button>
+</div>
+
         <p className="text-gray-600 mb-6 text-sm">Stay informed. Stay empowered.</p>
 
         <button

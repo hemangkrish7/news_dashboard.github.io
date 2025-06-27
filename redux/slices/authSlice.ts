@@ -9,8 +9,14 @@ interface User {
 }
 
 interface AuthState {
-  user: User | null;
+  user: {
+    name: string;
+    email: string;
+    photo: string;
+    isAdmin: boolean; // ✅ already added in your code
+  } | null;
 }
+
 
 const initialState: AuthState = {
   user: null,
