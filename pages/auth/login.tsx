@@ -28,7 +28,7 @@ const handleEmailLogin = async () => {
         name: user.displayName || "Admin",
         email: user.email || "No Email",
         photo: "", // No photo in email/pass
-        isAdmin: user.email === "makhu4002@gmail.com", // Your public admin
+        isAdmin: user.email === "makhu2004@gmail.com", // Your public admin
       })
     );
     router.push("/dashboard");
