@@ -15,6 +15,8 @@ A modern, responsive dashboard built with **Next.js** and **Tailwind CSS**, feat
 - 💰 Payout Dashboard with inline editing of article payout rates
 - 📊 Analytics dashboard with pie/bar charts for article trends
 - 📤 Export options: PDF, CSV, and Google Sheets via NocodeAPI
+- Admin Login Id: makhu2004@gmail.com
+- Password: "Abc@123"
 
 ---
 
